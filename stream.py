@@ -7,7 +7,7 @@ from flask import Flask, request, make_response
 
 # global constants/flags
 DEBUG = True
-PORT = 80
+PORT = 9999
 
 # clear function
 def clear_output():
@@ -20,9 +20,13 @@ flask_app = Flask(__name__)
 def home():
     return "Hello world!"
 
+@flask_app.route('/transcribe', methods=['GET'])
+def transcribe_get():
+    return "Can access /transcribe just fine"
+
 # main post request handler
-@flask_app.route('/transcribe', methods=['POST'])
-def result():
+@flask_app.route('/transcribe', methods=['POST', 'PUT'])
+def transcribe_post():
     reqBody = request.get_json()
     print(reqBody['transcript'], end=" ")
     return make_response(json.dumps({"message": "recieved"}), 200, {"Content-Type": 'application/json'})
