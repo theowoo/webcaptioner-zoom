@@ -33,6 +33,15 @@ In Chrome, to get insecure requests to localhost working, go to the following UR
 
 Set it to enabled and restart the browser.
 
+## Web Captioner Setup
+
+Before starting a transcription, you will need to go to `https://localhost:9999/`
+and make sure you see the "Hello World!" page. If you can see that, you've properly
+told Chrome to allow insecure requests to content on `localhost`.
+
+After that, go to `https://webcaptioner.com/captioner/settings/webhooks` 
+and for the URL enter `https://localhost:9999/transcribe`. 
+
 ## Future Plans
 
 [ ] Make server properly HTTPS compliant (with legit certs)
