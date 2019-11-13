@@ -27,6 +27,13 @@ and follow the prompts:
 
     openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
 
+In Chrome, to get insecure requests to localhost working, go to the following URL:
+
+    chrome://flags/#allow-insecure-localhost
+
+Set it to enabled and restart the browser.
+
 ## Future Plans
 
-[ ] Dockerize app!
+[] Make server properly HTTPS compliant (with legit certs)
+[] Dockerize scripts
