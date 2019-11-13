@@ -35,5 +35,6 @@ Set it to enabled and restart the browser.
 
 ## Future Plans
 
-[] Make server properly HTTPS compliant (with legit certs)
-[] Dockerize scripts
+[ ] Make server properly HTTPS compliant (with legit certs)
+
+[ ] Dockerize scripts
