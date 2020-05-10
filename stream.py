@@ -1,14 +1,15 @@
 # stream.py
-# initial proof of concept to
-# demonstrate Web Captioner's Webhooks
+# Send captions from Web Captioner to YouTube Live.
 
-import os, sys, json, logging
+import os, sys, json, logging, requests
 from flask import Flask, request, make_response
+from datetime  import datetime
 
 # global constants/flags
 DEBUG = False
 PORT = 9999
 LINE_LENGTH = 80
+STREAM_KEY = "YOUR_YOUTUBE_STREAM_KEY"
 counter = 0
 
 if not DEBUG:
@@ -36,10 +37,22 @@ def transcribe_get():
 def transcribe_post():
     # for some reason, response.get_json won't parse right
     # so we'll make json ourselves
-    reqText = json.loads(request.get_data(as_text=True))['transcript']
-    
+    data = json.loads(request.get_data(as_text=True))
+    reqText = data['transcript']
+    sequence = data['sequence']
+
+    # send captions to youtube
+    url = "http://upload.youtube.com/closedcaption?" \
+        + "cid=" + STREAM_KEY \
+        + "&seq=" + str(sequence)
+    content = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + '\n' + reqText + ' \n' 
+    headers = {'content-type': 'text/plain'}
+
+    r = requests.post(url=url, data=content.encode('utf-8'), headers=headers)
+
     # print the request
-    print(reqText, end=' ')
+    print(url)
+    print(sequence, content)
     sys.stdout.flush()
 
     # break every 80 characters
