@@ -1,7 +1,11 @@
-# webcaptioner-stream
+# webcaptioner-zoom
 
-A way to stream caption requests from Web Captioner to your terminal.
+Stream caption requests from Web Captioner to Zoom Meeting by combining [jlacson/webcaptioner-stream](https://github.com/jlacson/webcaptioner-stream) and [Zoom API](https://support.zoom.us/hc/en-us/articles/115002212983-Integrating-a-third-party-closed-captioning-service).
 A really rough POC!
+
+## Configuration
+
+Edit `stream.py`, change the variables `ZOOM_API_TOKEN` (`https://wmcc.zoom.us/closedcaption?id={LONG_STRING}`) and `LANGAUGE`.
 
 ## Environment Set Up
 
@@ -40,10 +44,8 @@ and make sure you see the "Hello World!" page. If you can see that, you've prope
 told Chrome to allow insecure requests to content on `localhost`.
 
 After that, go to `https://webcaptioner.com/captioner/settings/webhooks` 
-and for the URL enter `https://localhost:9999/transcribe`. 
+and for the URL enter `https://localhost:9999/transcribe` (Method: `POST`)
 
-## Future Plans
+## Demo
 
-[ ] Make server properly HTTPS compliant (with legit certs)
-
-[ ] Dockerize scripts
+![Zoom CC Demo](./zoom_cc_demo.gif)
