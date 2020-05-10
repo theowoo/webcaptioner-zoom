@@ -1,5 +1,5 @@
 # stream.py
-# Send captions from Web Captioner to YouTube Live.
+# Send captions from Web Captioner to Zoom Meeting.
 
 import os, sys, json, logging, requests
 from flask import Flask, request, make_response
@@ -9,7 +9,8 @@ from datetime  import datetime
 DEBUG = False
 PORT = 9999
 LINE_LENGTH = 80
-STREAM_KEY = "YOUR_YOUTUBE_STREAM_KEY"
+ZOOM_API_TOKEN = "YOUR_ZOOM_API_TOKEN"
+LANGAUGE = "en-US"  # Language code - ISO country code, e.g. de-DE.
 counter = 0
 
 if not DEBUG:
@@ -41,11 +42,11 @@ def transcribe_post():
     reqText = data['transcript']
     sequence = data['sequence']
 
-    # send captions to youtube
-    url = "http://upload.youtube.com/closedcaption?" \
-        + "cid=" + STREAM_KEY \
-        + "&seq=" + str(sequence)
-    content = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + '\n' + reqText + ' \n' 
+    # send captions to zoom
+    url = ZOOM_API_TOKEN \
+        + "&seq=" + str(sequence) \
+        + "&lang=" + LANGAUGE
+    content = reqText + ' '
     headers = {'content-type': 'text/plain'}
 
     r = requests.post(url=url, data=content.encode('utf-8'), headers=headers)
